@@ -1,0 +1,79 @@
+ <!DOCTYPE html>
+<html lang="ru">
+  <head>
+ 
+  <meta charset="utf-8"> 
+  <title>lohotron</title>
+      
+</head>
+<body>
+<style>
+    .lineNumbering {
+    width: 30px;
+    background: #F5F5F5;
+    color: #BBB;
+    position: absolute;
+    padding:10px 5px;
+}
+
+.message > p {
+    padding:5px 10px;
+    position:relative;
+    border:2px solid rgb(74,77,82);
+    border:2px solid rgba(74,77,82,.5);
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
+    margin-left: 50px;
+}
+    </style>
+<div class="message">
+    <div class="lineNumbering"> </div>
+<div id="container">
+    
+    <p id="main" >
+    </p>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js">
+    
+  $(document).ready(function () {
+    $(".message").each(function () {
+        var self = $(this);
+        var numbering = self.find(".lineNumbering").first();
+        var messageText = self.find("p").first();
+        var lineHeight = numbering.text("...").height();
+        var lines = messageText.height() / lineHeight;
+        var lineNumberingHtml = "";
+        for(var i = 1; i <= lines; i++) {
+            lineNumberingHtml = "" + lineNumberingHtml + i + "<br />";
+        }
+
+        numbering.html(lineNumberingHtml);
+    });
+});
+    var reader = new XMLHttpRequest() || new ActiveXObject('MSXML2.XMLHTTP');
+
+function loadFile() {
+    reader.open('get', 'test2.txt', true); 
+    reader.onreadystatechange = displayContents;
+    reader.send(null);
+    
+    
+}
+    
+
+function displayContents() {
+    if(reader.readyState==4) {
+        var el = document.getElementById('main');
+        
+        el.innerHTML = reader.responseText;
+        console.log(reader.responseText)
+    }
+}
+
+loadFile()
+    
+    </script>
+</div>
+    </body>
+</html>
